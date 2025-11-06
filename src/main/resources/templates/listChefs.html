@@ -36,12 +36,7 @@
     <h2 class="h2">Choose a chef:</h2>
 
     <form action="/dish" method="POST">
-<!--        <label >Search </label>-->
-<!--        <input type="text" name="search">-->
-        <!-- Display radio buttons for each chef,
-             the value should be the chef id
-             and the displayed text should be:
-             Name: <firstName> <lastName>, Bio: <bio> -->
+
         <div th:each="chef: ${chefs}" class="custom-control custom-radio">
             <label>
                 <input type="radio" name="chefId" th:value="${chef.id}" class="custom-control-input">
@@ -52,6 +47,22 @@
         </div>
         <input id="submitt" type="submit" value="Submit" class="btn btn-primary">
     </form>
+
+
+    <hr/>
+    <h2 class="h2 mt-4">Recent Reviews</h2>
+
+    <div th:if="${#lists.isEmpty(recentChefs)}">
+        <p>No recent reviews yet.</p>
+    </div>
+    <ul th:if="${!#lists.isEmpty(recentChefs)}" class="list-group mb-4">
+        <li th:each="chef : ${recentChefs}" class="list-group-item">
+            <strong th:text="${chef.firstName + ' ' + chef.lastName}"></strong><br>
+            <small th:text="'Bio: ' + ${chef.bio}"></small>
+        </li>
+    </ul>
+
+
 </main>
 </body>
 </html>

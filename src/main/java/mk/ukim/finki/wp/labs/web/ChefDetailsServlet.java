@@ -16,6 +16,7 @@ import org.thymeleaf.web.IWebExchange;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "chefDetailsServlet", urlPatterns = "/chefDetails")
@@ -49,10 +50,37 @@ public class ChefDetailsServlet extends HttpServlet {
 
         chefService.addDishToChef(chefId, dishId);
 
+        String chefIdParam = req.getParameter("chefId");
+        if (chefIdParam != null) {
+             chefId = Long.parseLong(chefIdParam);
+            Chef selectedChef = chefService.findById(chefId);
+            addChefToRecentList(req, selectedChef);
+        }
         context.setVariable("chef", chef);
         context.setVariable("dishes", dish);
 
         springTemplateEngine.process("chefDetails.html", context, resp.getWriter());
 
+
+
+    }
+
+    private void addChefToRecentList(HttpServletRequest req, Chef chef) {
+        List<Chef> recentChefs = (List<Chef>) req.getSession().getAttribute("recentChefs");
+
+        if (recentChefs == null) {
+            recentChefs = new ArrayList<>();
+        }
+
+
+        recentChefs.removeIf(c -> c.getId().equals(chef.getId()));
+
+        if (recentChefs.size() >= 3) {
+            recentChefs.remove(0);
+        }
+
+        recentChefs.add(chef);
+
+        req.getSession().setAttribute("recentChefs", recentChefs);
     }
 }

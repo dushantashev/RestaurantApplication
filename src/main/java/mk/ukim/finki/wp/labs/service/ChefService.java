@@ -12,4 +12,5 @@ public interface ChefService {
     void deleteDishFromChef(Long chefId, String dishId);
     public ArrayList<Chef> findByName(String name);
     public String mostFrequentProduct(Long chefId);
+
 }
