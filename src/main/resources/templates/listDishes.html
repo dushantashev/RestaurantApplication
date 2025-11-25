@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{'/dishes/form'}" method="get">
+<!--    <label>DishId:</label>-->
+<!--    <input type="text" name="dishId" id="dishId">-->
+<!--    <br>-->
+<!--    <label>Name:</label>-->
+<!--    <input type="text" name="name" id="name">-->
+<!--    <br>-->
+<!--    <label>Cusine:</label>-->
+<!--    <input type="text" name="cuisine" id="cuisine">-->
+<!--    <br>-->
+<!--    <label>PreparationTime:</label>-->
+<!--    <input type="number" name="preparationTime" id="preparationTime">-->
+<!--    <br>-->
+
+    <button type="submit">ADD</button>
+</form>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Cuisine</th>
+        <th>Preparation Time</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each="dish : ${dishes}">
+        <td th:text="${dish.name}"></td>
+        <td th:text="${dish.cusine}"></td>
+        <td th:text="${dish.preparationTime}"></td>
+
+        <td>
+            <!-- Edit button -->
+<!--            <a th:href="@{'/dishes/edit/' + ${dish.id}}">-->
+<!--                <button>Edit</button>-->
+<!--            </a>-->
+            <form th:action="@{'/dishes/form/' + ${dish.id}}" method="post">
+
+            <button>Edit</button>
+            </form>
+            <!-- Delete button -->
+            <a th:href="@{'/dishes/delete/' + ${dish.id}}">
+                <button>Delete</button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

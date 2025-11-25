@@ -4,8 +4,8 @@ import mk.ukim.finki.wp.labs.model.Dish;
 import mk.ukim.finki.wp.labs.repository.DishRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class InMemoryDishRepository implements DishRepository {
@@ -25,7 +25,21 @@ public class InMemoryDishRepository implements DishRepository {
 
     @Override
     public void deleteByDishId(String dishId) {
+
         DataHolder.dishes.removeIf(c -> c.getDishId().equals(dishId));
+    }
+
+    @Override
+    public Optional<Dish> findById(Long id) {
+        return Optional.ofNullable(DataHolder.dishes.stream()
+                .filter(dish -> dish.getId().equals(id)).findFirst().orElse(null));
+    }
+
+    @Override
+    public Dish save(Dish dish) {
+
+        DataHolder.dishes.add(dish);
+        return dish;
     }
 
 }

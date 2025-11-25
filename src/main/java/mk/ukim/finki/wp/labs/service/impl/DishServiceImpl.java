@@ -7,6 +7,7 @@ import mk.ukim.finki.wp.labs.service.DishService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DishServiceImpl implements DishService {
@@ -28,6 +29,41 @@ public class DishServiceImpl implements DishService {
             throw new RuntimeException("Dish with id: " + dishId + " not found");
         }
         return dish;
+    }
+
+    @Override
+    public Dish findById(Long id) {
+       Optional<Dish> dish= dishRepository.findById(id);
+        return dish.orElse(null);
+    }
+
+    @Override
+    public Dish create(String dishId, String name, String cuisine, int preparationTime) {
+       if (dishRepository.findByDishId(dishId)!=null){
+           dishRepository.deleteByDishId(dishId);
+       }
+        Dish dish=new Dish(dishId,name,cuisine,preparationTime);
+
+        return dishRepository.save(dish);
+    }
+
+    @Override
+    public Dish update(Long id, String dishId, String name, String cuisine, int preparationTime) {
+
+
+        Dish dish=findById(id);
+        dish.setDishId(dishId);
+        dish.setCusine(cuisine);
+        dish.setName(name);
+        dish.setPreparationTime(preparationTime);
+        return dishRepository.save(dish);
+
+    }
+
+    @Override
+    public void delete(Long id) {
+      Dish dish=findById(id);
+      dishRepository.deleteByDishId(dish.getDishId());
     }
 
     @Override

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 th:text="${dish!=null}? 'Edit Dish' : 'Add New Dish'"></h1>
+<table>
+<form th:action="${dish != null} ? '/dishes/edit/' + ${dish.id} : '/dishes/add'" method="post">
+
+    <label>DishId:</label>
+    <input type="text" name="dishId" id="dishId" th:value="${dish != null} ? ${dish.dishId} : ''">
+    <br>
+    <label>Name:</label>
+    <input type="text" name="name" id="name" th:value="${dish != null} ? ${dish.name}: ''">
+    <br>
+    <label>Cusine:</label>
+    <input type="text" name="cuisine" id="cuisine" th:value="${dish != null} ? ${dish.cusine} : ''">
+    <br>
+    <label>PreparationTime:</label>
+    <input type="number" name="preparationTime" id="preparationTime" th:value="${dish!=null} ? ${dish.preparationTime}: ''">
+    <br>
+
+    <button type="submit">ADD</button>
+
+</form>
+</table>
+</body>
+</html>
