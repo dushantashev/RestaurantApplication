@@ -45,7 +45,8 @@ public class ChefListServlet extends HttpServlet {
 
         String chefIdParam = req.getParameter("chefId");
         if (chefIdParam != null) {
-            Long chefId = Long.parseLong(chefIdParam);
+            //smeniv tuka
+            Long chefId = (Long) Long.parseLong(chefIdParam);
             Chef selectedChef = chefService.findById(chefId);
             addChefToRecentList(req, selectedChef);
         }

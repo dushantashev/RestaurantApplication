@@ -41,6 +41,14 @@ public class DishController {
         dishService.create(dishId,name,cuisine,preparationTime);
         return "redirect:/dishes";
     }
+    @PostMapping("/dishes/like/{id}")
+    public String like(@PathVariable Long id){
+        Dish dish=dishService.findById(id);
+        dishService.likeplus(id);
+
+        return "redirect:/dishes";
+    }
+
     @PostMapping("/dishes/edit/{id}")
     public String editDish(@PathVariable Long id, @RequestParam String dishId, @RequestParam String name, @RequestParam String cuisine, @RequestParam int preparationTime){
         Dish dish=dishService.findById(id);

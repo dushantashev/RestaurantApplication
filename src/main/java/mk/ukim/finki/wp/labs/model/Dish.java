@@ -13,6 +13,7 @@ public class Dish {
     private String name;
     private String cusine;
     private int preparationTime;
+    private  int likes=0;
     private static int counter=0;
     public Dish() {
     }
@@ -25,6 +26,7 @@ public class Dish {
         this.name = name;
         this.cusine = cusine;
         this.preparationTime = preparationTime;
+        this.likes=0;
     }
 
     public Long getId() {
@@ -64,5 +66,25 @@ public class Dish {
 
     public void setPreparationTime(int preparationTime) {
         this.preparationTime = preparationTime;
+    }
+
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+    public void likeplus(){
+        this.likes++;
+    }
+
+    public static int getCounter() {
+        return counter;
+    }
+
+    public static void setCounter(int counter) {
+        Dish.counter = counter;
     }
 }

@@ -36,9 +36,14 @@
         <td th:text="${dish.name}"></td>
         <td th:text="${dish.cusine}"></td>
         <td th:text="${dish.preparationTime}"></td>
+        <td th:text="${dish.likes}"></td>
+        <td>
+        <form th:action="@{'/dishes/like/' + ${dish.id}}" method="post">
+            <button type="submit">Like</button>
+        </form>
 
         <td>
-            <!-- Edit button -->
+
 <!--            <a th:href="@{'/dishes/edit/' + ${dish.id}}">-->
 <!--                <button>Edit</button>-->
 <!--            </a>-->
@@ -46,7 +51,7 @@
 
             <button>Edit</button>
             </form>
-            <!-- Delete button -->
+
             <a th:href="@{'/dishes/delete/' + ${dish.id}}">
                 <button>Delete</button>
             </a>

@@ -13,5 +13,6 @@ public interface DishRepository {
     void deleteByDishId(String dishId);
     Optional<Dish> findById(Long id);
     Dish save(Dish dish);
+    void likeCounter(Long id);
 
 }

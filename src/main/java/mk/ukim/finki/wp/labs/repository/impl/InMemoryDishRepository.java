@@ -42,4 +42,22 @@ public class InMemoryDishRepository implements DishRepository {
         return dish;
     }
 
+    @Override
+    public void likeCounter(Long id) {
+                Dish dish=DataHolder.dishes.stream().filter(dish1 -> dish1.getId().equals(id)).findFirst().orElse(null);
+                if (dish!=null) {
+                    dish.likeplus();
+                }
+    }
+
+//    @Override
+//    public void likeCounter(Long id) {
+//        Dish dish=DataHolder.dishes.stream().filter(dish1 -> dish1.getId().equals(id)).findFirst().orElse(null);
+//
+//        dish.setLikes();
+//
+//
+//
+//    }
+
 }

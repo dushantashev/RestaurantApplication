@@ -70,4 +70,9 @@ public class DishServiceImpl implements DishService {
     public void deleteDish(String dishId) {
         this.dishRepository.deleteByDishId(dishId);
     }
+
+    @Override
+    public void likeplus(Long id) {
+        this.dishRepository.likeCounter(id);
+    }
 }

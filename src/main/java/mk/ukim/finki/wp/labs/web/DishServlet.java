@@ -36,7 +36,7 @@ public class DishServlet extends HttpServlet {
                 .buildExchange(req, resp);
 
         String chefId = req.getParameter("chefId");
-        Long chefIdLong = Long.parseLong(chefId);
+        Long chefIdLong = (Long) Long.parseLong(chefId);
 
         Chef chef = chefService.findById(chefIdLong);
         List<Dish> dishes=dishService.listDishes();
