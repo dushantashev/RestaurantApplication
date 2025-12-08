@@ -35,7 +35,7 @@
     </form>
     <h2 class="h2">Choose a chef:</h2>
 
-    <form action="/dish" method="POST">
+    <form action="/dish" method="post">
 
         <div th:each="chef: ${chefs}" class="custom-control custom-radio">
             <label>
@@ -43,9 +43,15 @@
                 (Name) <span th:text="${chef.firstName}"></span>
                 <span th:text="${chef.lastName}"></span>,
                 (Bio) <span th:text="${chef.bio}"></span>
+                <a th:href="@{'/chefs/form/'+${chef.id}}" methods="post">
+                   Edit
+                </a>
+                <a th:href="@{'/chefs/delete/'+${chef.id}}" methods="post">
+                    Delete
+                </a>
             </label>
         </div>
-        <input id="submitt" type="submit" value="Submit" class="btn btn-primary">
+        <input id="submit" type="submit" value="Submit" class="btn btn-primary">
     </form>
 
 
@@ -59,6 +65,7 @@
         <li th:each="chef : ${recentChefs}" class="list-group-item">
             <strong th:text="${chef.firstName + ' ' + chef.lastName}"></strong><br>
             <small th:text="'Bio: ' + ${chef.bio}"></small>
+
         </li>
     </ul>
 

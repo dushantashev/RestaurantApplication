@@ -25,29 +25,27 @@
   </style>
 </head>
 <body>
-<!-- Dynamically display data -->
-<header>
-  <h1 th:text="${chef.firstName} + ' ' + ${chef.lastName}">Chef Name</h1>
-</header>
-<section>
-  <h2 th:text="${chef.bio}">Chef Bio</h2>
-  <h2>Dishes prepared by this chef:</h2>
-  <ul>
-    <li th:each="dish : ${chef.dishes}" style="display: flex; justify-content: space-between; align-items: center; padding:5px; margin:5px 0; background-color:#f5f5f5; border-radius:3px;">
-            <span th:text="${dish.name} + ' (' + ${dish.cusine} + ', ' + ${dish.preparationTime} + ' min)'">
-                Dish Info
-            </span>
+<h1>Product of <span th:text="${chef.firstName}" ></span></h1>
+<table>
+    <tbody>
+    <tr>
 
-      <!-- Delete button -->
-      <form th:action="@{/deleteDish}" method="POST" style="margin:0;">
-        <input type="hidden" name="chefId" th:value="${chef.id}">
-        <input type="hidden" name="dishId" th:value="${dish.dishId}">
-        <button type="submit" style="background-color: #dc3545; color:white; border:none; padding:3px 8px; border-radius:3px; cursor:pointer;">
-          Delete
-        </button>
-      </form>
-    </li>
-  </ul>
-</section>
+        <td th:each="dish: ${chef.dishes}">
+            <label class="form-check">
+                <input class="form-check-input" type="radio" name="dishId" th:value="${dish.dishId}" required/>
+                <span th:text="${dish.name} + ', ' + ${dish.cusine} + ' (' + ${dish.preparationTime} + ' min)' ">
+                </span>
+                <form method="post" th:action="@{'/deletefromBucket/' + ${dish.dishId}}">
+                    <input type="hidden" th:value="${chef.id}" name="chefId">
+                    <button type="submit">Delete</button>
+                </form>
+<!--                <a method="post" th:href="@{'/deletefromBucket/' + ${dish.dishId}}">Delete</a>-->
+                <br>
+            </label>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

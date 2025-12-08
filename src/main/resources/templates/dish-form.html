@@ -21,7 +21,17 @@
     <label>PreparationTime:</label>
     <input type="number" name="preparationTime" id="preparationTime" th:value="${dish!=null} ? ${dish.preparationTime}: ''">
     <br>
+    <label>Chef:</label>
+    <select name="chefId">
+        <option value="">None</option>
 
+        <option th:each="c : ${chefs}"
+                th:value="${c.id}"
+                th:text="${c.firstName + ' ' + c.lastName}"
+                th:selected="${dish != null and dish.chef != null and c.id == dish.chef.id}">
+        </option>
+
+    </select>
     <button type="submit">ADD</button>
 
 </form>

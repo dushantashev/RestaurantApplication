@@ -1,8 +1,10 @@
 package mk.ukim.finki.wp.labs.service.impl;
 
 
+import mk.ukim.finki.wp.labs.model.Chef;
 import mk.ukim.finki.wp.labs.model.Dish;
-import mk.ukim.finki.wp.labs.repository.DishRepository;
+import mk.ukim.finki.wp.labs.repository.impl.ChefRepository;
+import mk.ukim.finki.wp.labs.repository.impl.DishRepository;
 import mk.ukim.finki.wp.labs.service.DishService;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +14,13 @@ import java.util.Optional;
 @Service
 public class DishServiceImpl implements DishService {
     private final DishRepository dishRepository;
+    private final ChefRepository chefRepository;
 
-    public DishServiceImpl(DishRepository dishRepository) {
+    public DishServiceImpl(DishRepository dishRepository, ChefRepository chefRepository) {
         this.dishRepository = dishRepository;
+        this.chefRepository = chefRepository;
     }
+
 
     @Override
     public List<Dish> listDishes() {
@@ -38,23 +43,24 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public Dish create(String dishId, String name, String cuisine, int preparationTime) {
+    public Dish create(String dishId, String name, String cuisine, int preparationTime, Chef chef) {
        if (dishRepository.findByDishId(dishId)!=null){
            dishRepository.deleteByDishId(dishId);
        }
-        Dish dish=new Dish(dishId,name,cuisine,preparationTime);
+        Dish dish=new Dish(dishId,name,cuisine,preparationTime,chef);
 
         return dishRepository.save(dish);
     }
 
     @Override
-    public Dish update(Long id, String dishId, String name, String cuisine, int preparationTime) {
-
+    public Dish update(Long id, String dishId, String name, String cuisine, int preparationTime,Long chefId) {
+     Chef chef=chefRepository.findChefById(chefId);
 
         Dish dish=findById(id);
         dish.setDishId(dishId);
         dish.setCusine(cuisine);
         dish.setName(name);
+        dish.setChef(chef);
         dish.setPreparationTime(preparationTime);
         return dishRepository.save(dish);
 
@@ -69,5 +75,14 @@ public class DishServiceImpl implements DishService {
     @Override
     public void deleteDish(String dishId) {
         this.dishRepository.deleteByDishId(dishId);
+    }
+
+    @Override
+    public void deleteFromBucket(String Id,Long chefId) {
+        Chef chef=chefRepository.findChefById(chefId);
+        Dish dish=dishRepository.findByDishId(Id);
+        chef.getDishes().remove(dish);
+        chefRepository.save(chef);
+
     }
 }

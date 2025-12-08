@@ -28,12 +28,12 @@ public class DataHolder {
 
     @PostConstruct
     public void init() {
-        dishes = new ArrayList<>();
-        dishes.add(new Dish("1", "Burger", "American", 15));
-        dishes.add(new Dish("2", "Fried Chicken", "American", 20));
-        dishes.add(new Dish("3", "Pizza", "Italian", 18));
-        dishes.add(new Dish("4", "Hot Dog", "American", 10));
-        dishes.add(new Dish("5", "Mac and Cheese", "American", 12));
+//        dishes = new ArrayList<>();
+//        dishes.add(new Dish("1", "Burger", "American", 15));
+//        dishes.add(new Dish("2", "Fried Chicken", "American", 20));
+//        dishes.add(new Dish("3", "Pizza", "Italian", 18));
+//        dishes.add(new Dish("4", "Hot Dog", "American", 10));
+//        dishes.add(new Dish("5", "Mac and Cheese", "American", 12));
 
 
 

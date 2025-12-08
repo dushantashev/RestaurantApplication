@@ -2,8 +2,8 @@ package mk.ukim.finki.wp.labs.service.impl;
 
 import mk.ukim.finki.wp.labs.model.Chef;
 import mk.ukim.finki.wp.labs.model.Dish;
-import mk.ukim.finki.wp.labs.repository.ChefRepository;
-import mk.ukim.finki.wp.labs.repository.DishRepository;
+import mk.ukim.finki.wp.labs.repository.impl.ChefRepository;
+import mk.ukim.finki.wp.labs.repository.impl.DishRepository;
 import mk.ukim.finki.wp.labs.service.ChefService;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class ChefServiceImpl implements ChefService {
     final private ChefRepository chefRepository;
-    final protected DishRepository dishRepository;
+    private final  DishRepository dishRepository;
 
     public ChefServiceImpl(ChefRepository chefRepository, DishRepository dishRepository) {
         this.chefRepository = chefRepository;
@@ -23,6 +23,19 @@ public class ChefServiceImpl implements ChefService {
     @Override
     public List<Chef> listChefs() {
         return this.chefRepository.findAll();
+    }
+
+
+    @Override
+    public Chef addDtC(Long chefId,Long dishId){
+        Dish dish=dishRepository.findByid(dishId);
+
+        Chef chef=findById(chefId);
+
+
+        chef.getDishes().add(dish);
+        chefRepository.save(chef);
+        return chef;
     }
 
     @Override
@@ -63,13 +76,25 @@ public class ChefServiceImpl implements ChefService {
         chefRepository.save(chef);
     }
     @Override
-    public ArrayList<Chef>findByName(String name){
-        return chefRepository.findByName(name);
+    public void deleteChefById(Long id){
+        chefRepository.deleteById(id);
     }
+    @Override
+    public ArrayList<Chef>findByName(String name){
+        return chefRepository.findByFirstName(name);
+    }
+
+    @Override
+    public void create(Chef chef){
+         chefRepository.save(chef);
+    }
+
+
+
     @Override
     public String mostFrequentProduct(Long chefId){
         Chef chef=chefRepository.findById(chefId).orElseThrow(()->new RuntimeException("Not FOund chef"));
-        return chefRepository.mostFrequentProduct(chef);
+        return chefRepository.mostFrequentCusineByChef(chef);
     }
 
 }

@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.labs.model;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.List;
@@ -7,11 +8,16 @@ import java.util.List;
 
 @Data
 //@AllArgsConstructor
+@Entity
 public class Chef {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
     private String bio;
+    @OneToMany(mappedBy = "chef", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+
     private List<Dish> dishes;
 
     public Chef() {
@@ -56,6 +62,7 @@ public class Chef {
     public void setBio(String bio) {
         this.bio = bio;
     }
+
 
     public List<Dish> getDishes() {
         return dishes;

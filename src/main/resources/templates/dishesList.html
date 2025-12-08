@@ -55,10 +55,11 @@
         <!-- Dynamically display radio buttons for each dish -->
         <div th:each="dish: ${dishes}">
             <label class="form-check">
-                <input class="form-check-input" type="radio" name="dishId" th:value="${dish.dishId}" required/>
+                <input class="form-check-input" type="radio" name="dishId" th:value="${dish.id}" required/>
                 <span th:text="${dish.name} + ', ' + ${dish.cusine} + ' (' + ${dish.preparationTime} + ' min)' "></span>
             </label>
         </div>
+
         <br/>
         <input type="submit" value="Add dish" class="btn btn-primary">
     </form>

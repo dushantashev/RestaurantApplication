@@ -12,5 +12,8 @@ public interface ChefService {
     void deleteDishFromChef(Long chefId, String dishId);
     public ArrayList<Chef> findByName(String name);
     public String mostFrequentProduct(Long chefId);
+    public void create(Chef chef);
+    public void deleteChefById(Long id);
+    public Chef addDtC(Long chefId,Long dishId);
 
 }
