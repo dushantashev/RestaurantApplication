@@ -8,6 +8,8 @@ import mk.ukim.finki.wp.labs.repository.impl.DishRepository;
 import mk.ukim.finki.wp.labs.service.DishService;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,17 +45,17 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public Dish create(String dishId, String name, String cuisine, int preparationTime, Chef chef) {
+    public Dish create(String dishId, String name, String cuisine, int preparationTime,int rating, Chef chef) {
        if (dishRepository.findByDishId(dishId)!=null){
            dishRepository.deleteByDishId(dishId);
        }
-        Dish dish=new Dish(dishId,name,cuisine,preparationTime,chef);
+        Dish dish=new Dish(dishId,name,cuisine,preparationTime,rating,chef);
 
         return dishRepository.save(dish);
     }
 
     @Override
-    public Dish update(Long id, String dishId, String name, String cuisine, int preparationTime,Long chefId) {
+    public Dish update(Long id, String dishId, String name, String cuisine, int preparationTime,int rating,Long chefId) {
      Chef chef=chefRepository.findChefById(chefId);
 
         Dish dish=findById(id);
@@ -84,5 +86,10 @@ public class DishServiceImpl implements DishService {
         chef.getDishes().remove(dish);
         chefRepository.save(chef);
 
+    }
+
+    @Override
+    public List<Dish> findByDishrating(int rating) {
+        return dishRepository.findByRatingGreaterThan(rating);
     }
 }

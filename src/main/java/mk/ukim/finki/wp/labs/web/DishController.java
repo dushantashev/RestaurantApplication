@@ -54,14 +54,14 @@ public class DishController {
     }
 
     @PostMapping("/dishes/add")
-    public String saveDish(@RequestParam String dishId, @RequestParam String name, @RequestParam String cuisine, @RequestParam int preparationTime, @RequestParam Long chefId){
+    public String saveDish(@RequestParam String dishId, @RequestParam String name, @RequestParam String cuisine, @RequestParam int preparationTime,@RequestParam int rating, @RequestParam Long chefId){
        Chef chef=chefService.findById(chefId);
-        Dish dish=new Dish(dishId,name,cuisine,preparationTime,chef);
-        dishService.create(dishId,name,cuisine,preparationTime,chef);
+        Dish dish=new Dish(dishId,name,cuisine,preparationTime,rating,chef);
+        dishService.create(dishId,name,cuisine,preparationTime,rating,chef);
         return "redirect:/dishes";
     }
     @PostMapping("/dishes/edit/{id}")
-    public String editDish(@PathVariable Long id, @RequestParam String dishId, @RequestParam String name, @RequestParam String cuisine, @RequestParam int preparationTime,@RequestParam Long chefId){
+    public String editDish(@PathVariable Long id, @RequestParam String dishId, @RequestParam String name, @RequestParam String cuisine, @RequestParam int preparationTime,@RequestParam int rating,@RequestParam Long chefId){
         Chef chef=chefService.findById(chefId);
         Dish dish=dishService.findById(id);
         dish.setPreparationTime(preparationTime);
@@ -70,7 +70,8 @@ public class DishController {
         dish.setChef(chef);
         dish.setPreparationTime(preparationTime);
         dish.setDishId(dishId);
-        dishService.update(id,dishId,dish.getName(),dish.getCusine(),preparationTime,chefId);
+        dish.setRating(rating);
+        dishService.update(id,dishId,dish.getName(),dish.getCusine(),preparationTime,rating,chefId);
         return "redirect:/dishes";
     }
     @GetMapping("/dishes/form")
@@ -79,6 +80,26 @@ public class DishController {
         model.addAttribute("chefs",chefService.listChefs());
         return "dish-form";
     }
+
+    @GetMapping("/dishes/search")
+    public String search(@RequestParam(required = false) Integer rating,
+                         Model model) {
+
+        List<Dish> dishes;
+
+        if (rating != null) {
+            dishes = dishService.findByDishrating(rating);
+        } else {
+            dishes = dishService.listDishes();
+        }
+
+        model.addAttribute("dishes", dishes);
+        model.addAttribute("rating", rating);
+
+        return "listDishes";
+    }
+
+
 
 
     @PostMapping("/dishes/form/{id}")

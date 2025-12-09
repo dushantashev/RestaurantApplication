@@ -17,37 +17,37 @@ public class DataInitializer {
 @Bean
 CommandLineRunner initData(DishRepository dishRepository, ChefRepository chefRepository, UserRepository userRepository){
     return args -> {
-//      Dish d1=new Dish();
-//      d1.setDishId("Dish-1");
-//      d1.setName("Pizza Marharita");
-//      d1.setCusine("Italian");
-//      d1.setPreparationTime(15);
+      Dish d1=new Dish();
+      d1.setDishId("Dish-1");
+      d1.setName("Pizza Marharita");
+      d1.setCusine("Italian");
+      d1.setPreparationTime(15);
+
+      Dish d2 = new Dish();
+      d2.setDishId("DISH-2");
+      d2.setName("Sushi Roll");
+      d2.setCusine("Japanese");
+      d2.setPreparationTime(20);
+
+
+        dishRepository.save(d1);
+        dishRepository.save(d2);
+
+
+
+        Chef chef1=new Chef();
+
+        chef1.setFirstName("Diego");
+        chef1.setLastName("Holand");
+        chef1.setBio("dfsdf");
+
+        Chef chef2=new Chef();
+        chef1.setFirstName("Hugo");
+        chef1.setLastName("Roll");
+        chef1.setBio("fdfs");
 //
-//      Dish d2 = new Dish();
-//      d2.setDishId("DISH-2");
-//      d2.setName("Sushi Roll");
-//      d2.setCusine("Japanese");
-//      d2.setPreparationTime(20);
-//
-//
-//        dishRepository.save(d1);
-//        dishRepository.save(d2);
-//
-//
-//
-//        Chef chef1=new Chef();
-//
-//        chef1.setFirstName("Diego");
-//        chef1.setLastName("Holand");
-//        chef1.setBio("dfsdf");
-//
-//        Chef chef2=new Chef();
-//        chef1.setFirstName("Hugo");
-//        chef1.setLastName("Roll");
-//        chef1.setBio("fdfs");
-//
-//        chefRepository.save(chef1);
-//        chefRepository.save(chef2);
+        chefRepository.save(chef1);
+        chefRepository.save(chef2);
 //        User user1 = new User();
 //        user1.setUsername("dushan");
 //        user1.setPassword("dushan"); // {noop} за plain text password

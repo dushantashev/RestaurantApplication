@@ -18,6 +18,9 @@
     <label>Cusine:</label>
     <input type="text" name="cuisine" id="cuisine" th:value="${dish != null} ? ${dish.cusine} : ''">
     <br>
+    <label>Rating:</label>
+    <input type="number" name="rating" id="rating" th:value="${dish != null} ? ${dish.rating} : ''">
+    <br>
     <label>PreparationTime:</label>
     <input type="number" name="preparationTime" id="preparationTime" th:value="${dish!=null} ? ${dish.preparationTime}: ''">
     <br>

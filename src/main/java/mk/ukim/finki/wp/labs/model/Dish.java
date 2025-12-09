@@ -17,6 +17,8 @@ public class Dish {
     private String dishId;
     private String name;
     private String cusine;
+    private int rating;
+
     private int preparationTime;
     private static int counter=0;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -27,14 +29,16 @@ public class Dish {
 
 
 
-    public Dish(String dishId, String name, String cusine, int preparationTime,Chef chef) {
+    public Dish(String dishId, String name, String cusine, int preparationTime,int rating,Chef chef) {
 //        id= (long) ++counter;
         this.dishId = dishId;
         this.name = name;
         this.cusine = cusine;
         this.preparationTime = preparationTime;
         this.chef=chef;
+        this.rating=rating;
     }
+
 
     public Long getId() {
         return id;
