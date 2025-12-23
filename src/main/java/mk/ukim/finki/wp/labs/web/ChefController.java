@@ -2,6 +2,7 @@ package mk.ukim.finki.wp.labs.web;
 
 
 import mk.ukim.finki.wp.labs.model.Chef;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import mk.ukim.finki.wp.labs.service.ChefService;
@@ -52,6 +53,7 @@ public class ChefController {
     }
 
     @PostMapping("/chefs/edit")
+    @PreAuthorize("hasRole('ADMIN')")
     public String editOpenForm(Model model) {
 
         return "edit";
@@ -67,6 +69,7 @@ public class ChefController {
     }
 
     @GetMapping("/chefs/form/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public  String editForm(@PathVariable Long id,Model model){
         Chef chef=chefService.findById(id);
         model.addAttribute("chef",chef);
@@ -76,6 +79,7 @@ public class ChefController {
 
 
     @GetMapping("/chefs/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String delete(@PathVariable Long id,Model model){
 
         chefService.deleteChefById(id);

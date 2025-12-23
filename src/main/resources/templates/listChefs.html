@@ -24,6 +24,11 @@
     </style>
 </head>
 <body>
+<th:block sec:authorize="hasRole('ADMIN')">
+    <a th:href="@{'/chefs/add'}" methods="get">
+        ADD
+    </a>
+</th:block>
 <header>
     <h1 >Welcome to Our Restaurant</h1>
 </header>
@@ -43,16 +48,22 @@
                 (Name) <span th:text="${chef.firstName}"></span>
                 <span th:text="${chef.lastName}"></span>,
                 (Bio) <span th:text="${chef.bio}"></span>
+                <th:block sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{'/chefs/form/'+${chef.id}}" methods="post">
                    Edit
                 </a>
+                </th:block>
+                <th:block sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{'/chefs/delete/'+${chef.id}}" methods="post">
                     Delete
                 </a>
+                </th:block>
             </label>
         </div>
         <input id="submit" type="submit" value="Submit" class="btn btn-primary">
     </form>
+
+
 
 
     <hr/>

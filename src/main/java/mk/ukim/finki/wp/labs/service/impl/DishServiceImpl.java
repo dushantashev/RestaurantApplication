@@ -71,7 +71,7 @@ public class DishServiceImpl implements DishService {
     @Override
     public void delete(Long id) {
       Dish dish=findById(id);
-      dishRepository.deleteByDishId(dish.getDishId());
+      dishRepository.delete(dish);
     }
 
     @Override

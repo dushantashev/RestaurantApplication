@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<th:block sec:authorize="hasRole('ADMIN')">
 <form th:action="@{'/dishes/form'}" method="get">
 <!--    <label>DishId:</label>-->
 <!--    <input type="text" name="dishId" id="dishId">-->
@@ -21,6 +22,7 @@
 
     <button type="submit">ADD</button>
 </form>
+</th:block>
 <table>
     <form th:action="@{/dishes/search}" method="get">
         <input type="number" name="rating" placeholder="Rating">
@@ -49,14 +51,17 @@
 <!--            <a th:href="@{'/dishes/edit/' + ${dish.id}}">-->
 <!--                <button>Edit</button>-->
 <!--            </a>-->
+            <th:block sec:authorize="hasRole('ADMIN')">
             <form th:action="@{'/dishes/form/' + ${dish.id}}" method="post">
 
             <button>Edit</button>
             </form>
 
+            <th:block sec:authorize="hasRole('ADMIN')">
             <a th:href="@{'/dishes/delete/' + ${dish.id}}">
                 <button>Delete</button>
             </a>
+            </th:block>
         </td>
     </tr>
     </tbody>
